@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata:
+  Author: Alvaro8317
+  Description: Plantilla básica con recurso IAM
+  Version: '1.0'
+Resources:
+  MyLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: mi-lambda-con-cloudformation
+      Runtime: python3.13
+      Handler: code.lambda_handler
+      Code:
+        S3Bucket: alvaro8317-course-us-east-1
+        S3Key: function.zip
+      Timeout: 10
+      MemorySize: 128
+      Role: !GetAtt RoleFunction.Arn
+  RoleFunction:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole

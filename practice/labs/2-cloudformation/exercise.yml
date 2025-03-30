@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata:
+  Author: Alvaro8317
+  Description: Plantilla laboratorio cloudformation
+  Version: '1.0'
+Resources:
+  GrootUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: groot
+      Tags:
+        - Key: Guardian
+          Value: "Galaxia"
+        - Key: Tipo
+          Value: "Flora coloso"
+  AvengersGroup:
+    Type: AWS::IAM::Group
+  AssociationUserToGroup:
+    Type: AWS::IAM::UserToGroupAddition
+    Properties:
+      GroupName: !Ref AvengersGroup
+      Users:
+        - !Ref GrootUser
+  Policy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: S3ListBucketsPolicy
+      Groups:
+        - !Ref AvengersGroup
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: Stmt1742704866041
+            Action:
+              - 's3:ListAllMyBuckets'
+            Effect: Allow
+            Resource: '*'

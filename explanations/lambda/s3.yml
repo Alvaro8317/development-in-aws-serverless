@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata:
+  Author: Alvaro8317
+  Description: Plantilla básica con recurso IAM
+  Version: '1.0'
+Resources:
+  MyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "alvaro8317-course-${AWS::Region}"
+Outputs:
+  MyBucketName:
+    Description: "Nombre final del bucket s3 después de reemplazos"
+    Value: !Ref MyBucket
