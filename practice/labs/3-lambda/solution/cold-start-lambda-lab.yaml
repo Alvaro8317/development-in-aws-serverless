@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+  Author: Alvaro8317
+  Description: Plantilla para Lambda URL que mantiene un contador y detecta cold starts
+  Version: "1.4"
+Resources:
+  # Permiso para invocar la Lambda URL
+  LambdaFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref MyLambdaFunction
+      Action: lambda:InvokeFunctionUrl
+      Principal: "*"
+      FunctionUrlAuthType: AWS_IAM
+
+  # URL de la Lambda pública con autenticación IAM
+  MyPublicUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      AuthType: AWS_IAM
+      TargetFunctionArn: !GetAtt MyLambdaFunction.Arn
+
+  # Definición de la Lambda
+  MyLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: mi-lambda-contador
+      Description: "Lambda que mantiene un contador y se reinicia en cold start"
+      Runtime: nodejs22.x
+      Handler: index.handler
+      Code:
+        S3Bucket: alvaro8317-course-us-east-1
+        S3Key: laboratorio-lambda/lambda_cold_start.zip
+      Timeout: 5
+      MemorySize: 128
+      Role: !GetAtt RoleFunction.Arn
+
+  # Role para la Lambda
+  RoleFunction:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole

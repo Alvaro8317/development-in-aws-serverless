@@ -73,7 +73,3 @@
 - Una vez finalizado el laboratorio, elimina el stack de CloudFormation para evitar costos.
 
 ---
-
-## 🔥 **Reto Extra para los Estudiantes**
-
-- Modificar el código para agregar una fecha de la última invocación al resultado en caso que la lambda esté caliente.
