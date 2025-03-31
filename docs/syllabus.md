@@ -79,11 +79,15 @@
 
 9. Protegiendo tu URL Lambda con autenticación y AWS Signature v4 🚧
 
-10. Cold Start en Lambda
+10. Cold Start en Lambda 🚧
 
-11. Laboratorio práctico:
+11. Laboratorio práctico: 🚧
 
-- Función Lambda conectada con HTTP (URL Autenticada) que tenga un cold start implementado
+    - Función Lambda conectada con HTTP (URL Autenticada) que tenga un cold start implementado
+
+12. Limpieza de recursos 🚧
+
+13. Resumen 🚧
 
 ---
 
