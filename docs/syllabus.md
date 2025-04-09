@@ -69,21 +69,25 @@
 
 4. Practica con AWS CLI y Lambda ✅
 
-5. Practica con AWS Cloudformation y Lambda 🚧
+5. Practica con AWS Cloudformation y Lambda ✅
 
-6. Retornando una página web con URL lambda 🚧
+6. Retornando una página web con URL lambda ✅ (Tiene recurso - Archivo HTML)
 
-7. Automatizando una URL Lambda con Cloudformation 🚧
+7. Automatizando una URL Lambda con Cloudformation ✅
 
 8. Simulando un ataque a tu URL lambda 🚧
 
 9. Protegiendo tu URL Lambda con autenticación y AWS Signature v4 🚧
 
-10. Cold Start en Lambda
+10. Cold Start en Lambda 🚧
 
-11. Laboratorio práctico:
+11. Laboratorio práctico: 🚧
 
-- Función Lambda conectada con HTTP (URL Autenticada) que tenga un cold start implementado
+    - Función Lambda conectada con HTTP (URL Autenticada) que tenga un cold start implementado
+
+12. Limpieza de recursos 🚧
+
+13. Resumen 🚧
 
 ---
 
