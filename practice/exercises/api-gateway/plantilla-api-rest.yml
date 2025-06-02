@@ -1,0 +1,132 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+  Author: Alvaro8317
+  Description: Plantilla para la creación de una API REST
+  Version: "1.0"
+Parameters:
+  NameProjectParam:
+    Description: "Parameter with the name of the project"
+    Type: String
+    MinLength: 3
+    MaxLength: 15
+    Default: NameProjectDef
+  Timestamp:
+    Description: "Parameter with the timestamp to force the deployment"
+    Type: String
+Resources:
+  ApiRestGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Body:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: "api-pets.yml"
+      Name: "mi-primera-api-con-cloudformation"
+      Description: !Sub "Deployment for stage Development - ${Timestamp}"
+  ApiGatewayRestDeployment:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      Description: !Sub "Deployment for stage Development - ${Timestamp}"
+      RestApiId: !Ref ApiRestGateway
+      StageName: "Development"
+  RoleFunction:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Architectures:
+        - x86_64
+      Code:
+        ZipFile: |
+          import json
+          import uuid
+          from datetime import datetime
+
+          pets: list = []
+
+          def handler(event: dict, context):
+              method = event.get("httpMethod")
+
+              if method == "POST":
+                  try:
+                      body = json.loads(event.get("body", "{}"))
+                      new_pet = {
+                          "id": str(uuid.uuid4()),
+                          "name": body.get("name"),
+                          "type": body.get("type"),
+                          "age": body.get("age"),
+                          "created_at": datetime.utcnow().isoformat()
+                      }
+
+                      if not new_pet["name"] or not new_pet["type"] or new_pet["age"] is None:
+                          return {
+                              "statusCode": 400,
+                              "body": json.dumps({"message": "Data missing of the pet"})
+                          }
+
+                      pets.append(new_pet)
+
+                      return {
+                          "statusCode": 201,
+                          "body": json.dumps({
+                              "message": "Pet registered successfully",
+                              "data": new_pet
+                          })
+                      }
+
+                  except Exception as e:
+                      return {
+                          "statusCode": 500,
+                          "body": json.dumps({"message": "Internal server error", "error": str(e)})
+                      }
+
+              elif method == "GET":
+                  return {
+                      "statusCode": 200,
+                      "body": json.dumps({
+                          "message": "Pets list",
+                          "data": pets
+                      })
+                  }
+
+              else:
+                  return {
+                      "statusCode": 405,
+                      "body": json.dumps({"message": "Method not allowed :c"})
+                  }
+
+      Description: "Función lambda integrada con API Gateway"
+      Environment:
+        Variables:
+          PROJECT: !Ref NameProjectParam
+      EphemeralStorage:
+        Size: 512
+      FunctionName: "DEVELOPER_SERVERLESS_IN_AWS_LAMBDA_API_GATEWAY"
+      Handler: index.handler
+      MemorySize: 128
+      PackageType: Zip
+      RecursiveLoop: Terminate
+      Role: !GetAtt RoleFunction.Arn
+      Runtime: python3.13
+      Tags:
+        - Key: "Project"
+          Value: "Udemy course of AWS Development serverless"
+      Timeout: 60
+  LambdaPermissionApiGateway:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref LambdaFunction
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:{ApiRestGateway}/*/*/pet"
