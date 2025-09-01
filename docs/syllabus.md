@@ -223,8 +223,8 @@ AWS Serverless 🚀
 ├── Fundamentos Cloud ☁️ (Ya listos ✅)
 ├── Primeros pasos en AWS 🚀 (Ya listos ✅)
 ├── Seguridad IAM 🔐 (Ya listo ✅)
-├── IaC y CloudFormation 🛠️ (Casi lista ✅)
-├── Lambda ⚡️
+├── IaC y CloudFormation 🛠️ (Ya listo ✅)
+├── Lambda ⚡️(Casi lista ✅)
 ├── API Gateway 🌐
 ├── Almacenamiento 💾 (S3/DynamoDB)
 ├── Eventos 📬 (SNS/SQS/EventBridge)
