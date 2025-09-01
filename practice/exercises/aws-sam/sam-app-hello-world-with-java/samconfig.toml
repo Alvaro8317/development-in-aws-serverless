@@ -1,0 +1,45 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "sam-app-hello-world-with-java"
+
+[dev.deploy.parameters]
+stack_name = "sam-app-hello-world-with-java-dev"
+resolve_s3 = true
+s3_prefix = "sam-app-hello-world-with-java-dev"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = [
+    "DatabaseUsername=UsuarioDBAdminDev",
+    "DatabasePassword=PasswordDBAdminDev",
+]
+
+[qa.deploy.parameters]
+
+stack_name = "sam-app-hello-world-with-java-qa"
+resolve_s3 = true
+s3_prefix = "sam-app-hello-world-with-java-qa"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = [
+    "DatabaseUsername=UsuarioDBAdminQa",
+    "DatabasePassword=PasswordDBAdminQa",
+]
+
+[prod.deploy.parameters]
+
+stack_name = "sam-app-hello-world-with-java-prod"
+resolve_s3 = true
+s3_prefix = "sam-app-hello-world-with-java-prod"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = [
+    "DatabaseUsername=UsuarioDBAdminProd",
+    "DatabasePassword=PasswordDBAdminProd",
+]
