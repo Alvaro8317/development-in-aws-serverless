@@ -26,6 +26,7 @@ Resources:
   SpendFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Lambda to create a spend
       CodeUri: src/
       Handler: entrypoints.spend.spend_handler
       Runtime: python3.13

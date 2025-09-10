@@ -19,3 +19,7 @@ sam build --no-cached
 sam local start-api --host 0.0.0.0 --port 3000 \
   --env-vars env.json \
   --docker-network sam-net
+
+sam local invoke SpendFunction --event events/event.json --env-vars env.json
+
+sam local invoke GetSpendFunction --event events/event.json --env-vars env.json
