@@ -12,12 +12,10 @@ aws dynamodb create-table \
   --region us-east-1 \
   --endpoint-url http://localhost:8000
 
+aws dynamodb list-tables --endpoint-url http://localhost:8000 --region us-east-1
+
+sam build --no-cached
+
 sam local start-api --host 0.0.0.0 --port 3000 \
   --env-vars env.json \
   --docker-network sam-net
-
-
-
-sam local start-api --host 0.0.0.0 --port 3000 --env-vars env.json
-
-aws dynamodb list-tables --endpoint-url http://localhost:8000

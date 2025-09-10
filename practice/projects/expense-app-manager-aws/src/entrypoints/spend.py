@@ -36,14 +36,14 @@ def spend_handler(event: dict[str, Any], context: typing.LambdaContext) -> dict:
         "body": json.dumps(
             {
                 "message": "Spend created succesfully",
-                "spend_created": spend_created.as_dict(),  #
+                "spend_created": spend_created.as_dict(),
             },
             default=_json_default,
         ),
     }
 
 
-def get_spend_handler(event: dict[str, Any], context: typing.LambdaContext) -> dict:  #
+def get_spend_handler(event: dict[str, Any], context: typing.LambdaContext) -> dict:
     repo = repo_dynamodb.DynamoDbRepoSpend()
     spend = spend_service.SpendService(repository=repo)
     spends = spend.get_spends()

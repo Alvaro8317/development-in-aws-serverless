@@ -14,7 +14,7 @@ class SpendService:
             name=name, description=description, amount=amount
         )
         self.repository.create_spend(spend_item.as_dict())
-        return spend_item  #
+        return spend_item
 
     def get_spends(self) -> list[spend.Spend]:
-        return self.repository.get_spends()  #
+        return self.repository.get_spends()
