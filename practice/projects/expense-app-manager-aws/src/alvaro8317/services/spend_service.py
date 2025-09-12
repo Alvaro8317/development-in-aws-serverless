@@ -1,10 +1,10 @@
 import decimal
 
-from models import base_repository, spend
+from alvaro8317.models import base_repository, spend
 
 
 class SpendService:
-    def __init__(self, repository: base_repository.BaseRepositorySpend):
+    def __init__(self, repository: base_repository.BaseRepositorySpend) -> None:
         self.repository = repository
 
     def create_spend(

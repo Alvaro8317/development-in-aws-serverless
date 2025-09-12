@@ -3,11 +3,12 @@ import json
 from typing import Any
 
 from aws_lambda_powertools.utilities import typing
-from models import repo_dynamodb
-from services import spend_service
+
+from alvaro8317.models import repo_dynamodb
+from alvaro8317.services import spend_service
 
 
-def _json_default(o):
+def _json_default(o: decimal.Decimal | str) -> float | str | dict:
     if isinstance(o, decimal.Decimal):
         return float(o)
     try:

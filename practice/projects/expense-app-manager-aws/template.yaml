@@ -28,7 +28,7 @@ Resources:
     Properties:
       Description: Lambda to create a spend
       CodeUri: src/
-      Handler: entrypoints.spend.spend_handler
+      Handler: alvaro8317.entrypoints.spend.spend_handler
       Runtime: python3.13
       Environment:
         Variables:
@@ -57,7 +57,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: src/
-      Handler: entrypoints.spend.get_spend_handler
+      Handler: alvaro8317.entrypoints.spend.get_spend_handler
       Runtime: python3.13
       Environment:
         Variables:

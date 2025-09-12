@@ -1,0 +1,8 @@
+[tool.ruff]
+select = ["E", "F", "ANN"]
+ignore = []
+preview = true
+
+[tool.ruff.lint.flake8-annotations]
+suppress-none-returning = false
+suppress-dummy-args = false

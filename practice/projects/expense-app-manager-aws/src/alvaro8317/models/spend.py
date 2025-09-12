@@ -2,6 +2,7 @@
 
 import dataclasses
 import decimal
+import typing
 import uuid
 from datetime import datetime, timezone
 
@@ -30,5 +31,5 @@ class Spend:
     def as_dict(self) -> dict[str, str | float]:
         return dataclasses.asdict(self)
 
-    def __iter__(self):
+    def __iter__(self) -> typing.Generator:
         yield from dataclasses.asdict(self).items()
