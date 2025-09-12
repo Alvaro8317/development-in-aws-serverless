@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Expense App Manager in TypeScript
+
+Globals:
+  Function:
+    Timeout: 5
+    Runtime: nodejs18.x
+    Architectures:
+      - x86_64
+
+Resources:
+  SpendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist   
+      Handler: handlers/spendHandler.spendHandler
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+      Events:
+        SpendEvent:
+          Type: Api
+          Properties:
+            Path: /spend
+            Method: post
+  
+  Table:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+
+  WriteSpendConnector:
+    Type: AWS::Serverless::Connector
+    Properties:
+      Source:
+        Id: SpendFunction
+      Destination:
+        Id: Table
+      Permissions:
+        - Write
