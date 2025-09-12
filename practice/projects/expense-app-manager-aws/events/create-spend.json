@@ -1,5 +1,5 @@
 {
-  "body": "{\n   \"name\":\"Un gasto cualquiera\",\n   \"description\":\"Una descripción cualquiera\",\n   \"amount\":\"50020.89\"\n}",
+  "body": "{\n   \"name\":\"Un gasto cualquiera compartible 2, con event file\",\n   \"description\":\"Una descripción cualquiera\",\n   \"amount\":\"50020.89\"\n}",
   "resource": "/hello",
   "path": "/hello",
   "httpMethod": "GET",

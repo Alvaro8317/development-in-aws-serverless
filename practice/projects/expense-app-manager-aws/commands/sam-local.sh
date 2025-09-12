@@ -1,3 +1,5 @@
+# Creación entorno tabla DynamoDB
+
 docker network ls
 docker network create sam-net
 
@@ -16,9 +18,13 @@ aws dynamodb list-tables --endpoint-url http://localhost:8000 --region us-east-1
 
 sam build --no-cached
 
+# Sam local API
+
 sam local start-api --host 0.0.0.0 --port 3000 \
   --env-vars env.json \
   --docker-network sam-net
+
+# Sam local invoke
 
 sam local invoke SpendFunction --event events/event.json --env-vars env.json
 
