@@ -1,0 +1,3 @@
+{
+    "body": "{\n  \"name\": \"Mi gasto con java\",\n  \"description\": \"Hola mundo con java y AWS\",\n  \"amount\": \"10500.5\"\n}"
+}
