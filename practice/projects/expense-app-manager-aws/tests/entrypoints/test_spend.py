@@ -9,10 +9,8 @@ from alvaro8317.models import base_repository
 
 
 def test__json_default_decimal_and_dataclass() -> None:
-    # decimal -> float
     assert spend_module._json_default(decimal.Decimal("12.50")) == 12.5
 
-    # dataclass -> dict
     @dataclass
     class X:
         a: int
@@ -20,7 +18,6 @@ def test__json_default_decimal_and_dataclass() -> None:
 
     assert spend_module._json_default(X(1, "ok")) == {"a": 1, "b": "ok"}
 
-    # str -> str (fallback)
     assert spend_module._json_default("hola") == "hola"
 
 
@@ -43,14 +40,11 @@ def test_spend_handler_success(monkeypatch: pytest.MonkeyPatch) -> None:
             self.amount = amount
 
         def as_dict(self) -> dict:
-            # Simula el diccionario que devolvería tu modelo real
             return {
                 "id": "fake-id",
                 "name": self.name,
                 "description": self.description,
-                "amount": float(
-                    self.amount
-                ),  # así como quedaría tras default=_json_default
+                "amount": float(self.amount),
             }
 
     class FakeService:
@@ -81,7 +75,6 @@ def test_spend_handler_success(monkeypatch: pytest.MonkeyPatch) -> None:
 
     resp = spend_module.spend_handler(event, context=None)
 
-    # Respuesta HTTP-like
     assert resp["statusCode"] == 200
     assert resp["headers"]["Content-Type"] == "application/json"
 
@@ -93,7 +86,6 @@ def test_spend_handler_success(monkeypatch: pytest.MonkeyPatch) -> None:
     assert spend_created["description"] == "prueba"
     assert spend_created["amount"] == pytest.approx(12.12)
 
-    # Verifica que la capa de servicio recibió Decimal, no str/float
     assert isinstance(calls["args"]["amount"], decimal.Decimal)
 
 
@@ -109,8 +101,6 @@ def test_get_spend_handler_success(monkeypatch: pytest.MonkeyPatch) -> None:
             self.repository = repository
 
         def get_spends(self) -> None:
-            # Tu implementación real podría devolver modelos;
-            # devolvemos dicts ya serializables para simplificar.
             return [
                 {"id": "1", "name": "A", "description": "x", "amount": 10.0},
                 {"id": "2", "name": "B", "description": "y", "amount": 20.5},
