@@ -1,29 +1,18 @@
 import decimal
 import json
-from typing import Any
 
 from aws_lambda_powertools.utilities import typing
+from aws_lambda_typing import events
 
 from alvaro8317.models import repo_dynamodb
-from alvaro8317.services import spend_service
+from alvaro8317.services import auth, spend_service, utils
 
 
-def _json_default(o: decimal.Decimal | str) -> float | str | dict:
-    if isinstance(o, decimal.Decimal):
-        return float(o)
-    try:
-        import dataclasses
-
-        if dataclasses.is_dataclass(o):
-            return dataclasses.asdict(o)
-    except Exception:
-        pass
-    return str(o)
-
-
-def spend_handler(event: dict[str, Any], context: typing.LambdaContext) -> dict:
-    body = event.get("body")
-    body_json: dict[str, str] = json.loads(body)
+@auth.with_auth
+def spend_handler(
+    event: events.APIGatewayProxyEventV2, context: typing.LambdaContext
+) -> dict:
+    body_json: dict = json.loads(event.get("body"))
     repo = repo_dynamodb.DynamoDbRepoSpend()
     spend = spend_service.SpendService(repository=repo)
     spend_created = spend.create_spend(
@@ -33,29 +22,26 @@ def spend_handler(event: dict[str, Any], context: typing.LambdaContext) -> dict:
     )
     return {
         "statusCode": 200,
-        "headers": {"Content-Type": "application/json"},
+        "headers": utils.cors_headers(),
         "body": json.dumps(
             {
                 "message": "Spend created succesfully",
                 "spend_created": spend_created.as_dict(),
             },
-            default=_json_default,
+            default=utils.json_default,
         ),
     }
 
 
-def get_spend_handler(event: dict[str, Any], context: typing.LambdaContext) -> dict:
+@auth.with_auth
+def get_spend_handler(
+    event: events.APIGatewayProxyEventV2, context: typing.LambdaContext
+) -> dict:
     repo = repo_dynamodb.DynamoDbRepoSpend()
     spend = spend_service.SpendService(repository=repo)
     spends = spend.get_spends()
-    response = {
+    return {
         "statusCode": 200,
-        "headers": {"Content-Type": "application/json"},
-        "body": json.dumps(
-            {
-                "spends": spends,
-            },
-            default=_json_default,
-        ),
+        "headers": utils.cors_headers(),
+        "body": json.dumps({"spends": spends}, default=utils.json_default),
     }
-    return response

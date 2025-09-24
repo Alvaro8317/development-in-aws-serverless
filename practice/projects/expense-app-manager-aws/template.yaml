@@ -5,6 +5,16 @@ Description: >
 
   Sample SAM Template for expense-app-manager-aws
 
+Parameters:
+  UsernameSSM:
+    Type: String
+    Default: "/expense-app-manager/auth/username"
+    Description: SSM Param with the information of the username for the app
+  PasswordSSM:
+    Type: String
+    Default: "/expense-app-manager/auth/password"
+    Description: SSM Param with the information of the password for the app
+
 Globals:
   Function:
     Timeout: 15
@@ -14,7 +24,11 @@ Globals:
       LogFormat: JSON
   Api:
     TracingEnabled: true
-    
+    Cors:
+      AllowMethods: "'OPTIONS,GET,POST'"
+      AllowHeaders: "'Content-Type,Authorization'"
+      AllowOrigin: "'*'"
+
 Resources:
   Table:
     Type: AWS::Serverless::SimpleTable
@@ -33,6 +47,8 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME: !Ref Table
+          SSM_USERNAME: !Ref UsernameSSM
+          SSM_PASSWORD: !Ref PasswordSSM
           IS_LOCAL_ENVIRONMENT: "false"
       Architectures:
       - x86_64
@@ -42,6 +58,17 @@ Resources:
           Properties:
             Path: /spends
             Method: post
+      Policies:
+      - Statement:
+          Effect: Allow
+          Action:
+            - ssm:GetParameter
+            - ssm:GetParameters
+            - ssm:GetParametersByPath
+          Resource:
+            - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter${UsernameSSM}
+            - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter${PasswordSSM}
+
 
   WriteSpendConnector:
     Type: AWS::Serverless::Connector
@@ -62,6 +89,8 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME: !Ref Table
+          SSM_USERNAME: !Ref UsernameSSM
+          SSM_PASSWORD: !Ref PasswordSSM
           IS_LOCAL_ENVIRONMENT: "false"
       Architectures:
       - x86_64
@@ -71,6 +100,18 @@ Resources:
           Properties:
             Path: /spends
             Method: get
+      Policies:
+      - Statement:
+          Effect: Allow
+          Action:
+            - ssm:GetParameter
+            - ssm:GetParameters
+            - ssm:GetParametersByPath
+          Resource:
+            - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter${UsernameSSM}
+            - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter${PasswordSSM}
+
+
 
   GetSpendConnector:
     Type: AWS::Serverless::Connector
