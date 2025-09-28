@@ -67,7 +67,8 @@
   >
     <div class="max-w-lg">
       <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
-        Take control of your <span class="text-green-600">finances</span> today
+        Take control of your <span class="text-green-600">finances</span> today and
+        tomorrow
       </h2>
       <p class="text-lg text-gray-600 mb-8">
         Track expenses, set budgets, and reach your goals with Expense Manager.
