@@ -1,0 +1,15 @@
+org: alvaro8317udemy
+app: first-project
+service: first-project-sls
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
