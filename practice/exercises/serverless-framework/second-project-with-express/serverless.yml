@@ -43,11 +43,11 @@ resources:
     UsersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        AttributeDefinitions:
+        AttributeDefinitions: # Los atributos que se usarán para las llaves (primarias - partición, compuestas) y también los atributos que se usan en índices
           - AttributeName: userId
-            AttributeType: S
-        KeySchema:
+            AttributeType: S # S - string, N - numeros, B - binarios
+        KeySchema: # Que tipo de llave es cada atributo
           - AttributeName: userId
-            KeyType: HASH
+            KeyType: HASH # HASH o RANGE, HASH hace referencia a una llave de partición, RANGE hace referencia a una llave de ordenación
         BillingMode: PAY_PER_REQUEST
         TableName: ${param:tableName}

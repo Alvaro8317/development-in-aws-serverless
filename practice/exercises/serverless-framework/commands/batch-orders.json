@@ -1,0 +1,244 @@
+{
+  "orders-table-dev": [
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1001"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "39000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso AWS Serverless desde cero"},
+            {"S": "Fundamentos de CloudFormation"}
+          ]},
+          "createdAt": {"S": "2025-10-29T15:01:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1002"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "42000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de Python para AWS Lambda"},
+            {"S": "Diseño de APIs con API Gateway"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:02:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1003"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "33000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de DynamoDB desde cero"},
+            {"S": "Optimizando RCU y WCU en la práctica"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:03:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1004"},
+          "status":  {"S": "INACTIVE"},
+          "total":   {"N": "25000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de SAM avanzado"},
+            {"S": "Automatización con CloudWatch Events"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:04:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1005"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "49000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de S3 para principiantes"},
+            {"S": "Optimización de almacenamiento en AWS"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:05:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1006"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "52000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de Serverless Framework"},
+            {"S": "CI/CD con GitHub Actions y SAM"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:06:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1007"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "31000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de EventBridge para desarrolladores"},
+            {"S": "Diseño de arquitecturas event-driven"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:07:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1008"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "29000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de AWS CDK práctico"},
+            {"S": "Creación de stacks con Python"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:08:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1009"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "37000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de Lambda Layers"},
+            {"S": "Empaquetado de dependencias en Node.js"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:09:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1010"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "41000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de SQS y SNS"},
+            {"S": "Integraciones entre servicios serverless"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:10:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1011"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "48000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de SAM Pipelines"},
+            {"S": "Despliegue continuo multiambiente"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:11:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1012"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "36000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de Monitoring con CloudWatch"},
+            {"S": "Métricas personalizadas con logs"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:12:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1013"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "34000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de CI/CD en AWS"},
+            {"S": "Deploy automatizado con CodePipeline"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:13:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1014"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "38000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de Terraform para AWS"},
+            {"S": "Infraestructura como código avanzada"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:14:00Z"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userId":  {"S": "U-001Udemy"},
+          "orderId": {"S": "O1015"},
+          "status":  {"S": "ACTIVE"},
+          "total":   {"N": "43000"},
+          "currency":{"S": "COP"},
+          "items":   {"L": [
+            {"S": "Curso de Cost Optimization en AWS"},
+            {"S": "Herramientas para reducir facturación"}
+          ]},
+          "createdAt": {"S": "2025-10-28T15:15:00Z"}
+        }
+      }
+    }
+  ]
+}

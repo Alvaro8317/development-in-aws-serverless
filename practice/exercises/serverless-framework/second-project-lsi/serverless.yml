@@ -1,0 +1,80 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: alvaro8317udemy
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: first-project
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: second-project-with-lsi
+
+stages:
+  default:
+    params:
+      tableName: "orders-table-v2-${sls:stage}"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  # Uncomment to easily set up a custom domain. Read the docs for more details:
+  # https://www.serverless.com/framework/docs/providers/aws/guide/domains
+  # domain: api.example.com
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [OrdersTable, Arn]
+  environment:
+    USERS_TABLE: ${param:tableName}
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: "*"
+
+resources:
+  Resources:
+    OrdersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: orderId
+            AttributeType: S
+          - AttributeName: status
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH     # Llave de partición
+          - AttributeName: orderId
+            KeyType: RANGE    # Llave de ordenación
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${param:tableName}
+        LocalSecondaryIndexes:
+          - IndexName: LSIByStatus
+            KeySchema:
+            - AttributeName: userId
+              KeyType: HASH     # Tiene que ser la misma de la tabla original
+            - AttributeName: status
+              KeyType: RANGE    # Llave de ordenación
+            Projection:
+              ProjectionType: "ALL"
+          - IndexName: LSIByCreationDate
+            KeySchema:
+            - AttributeName: userId
+              KeyType: HASH     # Tiene que ser la misma de la tabla original
+            - AttributeName: createdAt
+              KeyType: RANGE    # Llave de ordenación
+            Projection:
+              ProjectionType: "ALL"

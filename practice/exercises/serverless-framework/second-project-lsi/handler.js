@@ -29,8 +29,8 @@ app.get("/users/:userId", async (req, res) => {
     const command = new GetCommand(params);
     const { Item } = await docClient.send(command);
     if (Item) {
-      const {  userId, name, createdAt, email, webpage  } = Item;
-      res.json({  userId, name, createdAt, email, webpage });
+      const { userId, name } = Item;
+      res.json({ userId, name });
     } else {
       res
         .status(404)
@@ -43,22 +43,22 @@ app.get("/users/:userId", async (req, res) => {
 });
 
 app.post("/users", async (req, res) => {
-  const { userId, name, createdAt, email, webpage } = req.body;
+  const { userId, name } = req.body;
   if (typeof userId !== "string") {
-    return res.status(400).json({ error: '"userId" must be a string' });
+    res.status(400).json({ error: '"userId" must be a string' });
   } else if (typeof name !== "string") {
-    return res.status(400).json({ error: '"name" must be a string' });
+    res.status(400).json({ error: '"name" must be a string' });
   }
 
   const params = {
     TableName: USERS_TABLE,
-    Item: { userId, name, createdAt, email, webpage },
+    Item: { userId, name },
   };
 
   try {
     const command = new PutCommand(params);
     await docClient.send(command);
-    return res.json({ userId, name, createdAt, email, webpage });
+    res.json({ userId, name });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Could not create user" });
