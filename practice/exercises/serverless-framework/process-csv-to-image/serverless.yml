@@ -1,0 +1,37 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: alvaro8317udemy
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: first-project
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: process-csv-to-image
+
+params:
+  default:
+    namebucket: alvaro8317
+  dev: 
+    namebucket: alvaro8317dev
+
+provider:
+  name: aws
+  runtime: python3.12
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - s3:
+          bucket:
+            Ref: MyBucketOfCsvAndImages
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .csv
+          existing: true
+
+resources:
+  Resources:
+    MyBucketOfCsvAndImages:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: bucket-csv-images-${param:namebucket}-${sls:stage}
+        VersioningConfiguration:
+          Status: Enabled
