@@ -11,6 +11,9 @@ params:
   dev: 
     namebucket: alvaro8317dev
 
+custom:
+  pythonRequirements: {}
+
 provider:
   name: aws
   runtime: python3.12
@@ -26,7 +29,23 @@ functions:
           rules:
             - suffix: .csv
           existing: true
-
+    iam:
+      role:
+        statements:
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:PutObject
+              - s3:ListBucket
+            Resource:
+              - !GetAtt MyBucketOfCsvAndImages.Arn # Sobre el bucket
+              - !Sub ${MyBucketOfCsvAndImages.Arn}/* # Sobre los objetos del bucket
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: "*"
 resources:
   Resources:
     MyBucketOfCsvAndImages:
@@ -35,3 +54,7 @@ resources:
         BucketName: bucket-csv-images-${param:namebucket}-${sls:stage}
         VersioningConfiguration:
           Status: Enabled
+  Outputs:
+    MyBucketOfCsvAndImagesOutput:
+      Description: Name of the bucket
+      Value: !Ref MyBucketOfCsvAndImages
