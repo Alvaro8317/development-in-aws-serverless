@@ -1,0 +1,65 @@
+org: alvaro8317udemy
+app: first-project
+service: async-sls-producer
+
+custom:
+  pythonRequirements: {}
+
+provider:
+  name: aws
+  runtime: python3.13
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+
+  environment:
+    ORDERS_QUEUE_URL: !Ref OrdersQueue
+    STAGE: ${self:provider.stage}
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - sqs:SendMessage
+          Resource: !GetAtt OrdersQueue.Arn
+
+functions:
+  createOrder:
+    handler: src/handlers/create_order.handler
+    description: Receive orders through API Gateway and send the messages to SQS
+    events:
+      - http:
+          path: orders
+          method: post
+    environment:
+      ORDERS_QUEUE_URL: !Ref OrdersQueue
+
+resources:
+  Resources:
+    OrdersQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:provider.stage}-orders-queue
+        Tags:
+          - Key: Environment
+            Value: ${self:provider.stage}
+          - Key: Project
+            Value: AsyncSLS
+
+  Outputs:
+    OrdersQueueUrl:
+      Description: URL of the queue
+      Value: !Ref OrdersQueue
+      Export:
+        Name: ${self:provider.stage}-OrdersQueueUrl
+    
+    OrdersQueueArn:
+      Description: ARN of the queue
+      Value: !GetAtt OrdersQueue.Arn
+      Export:
+        Name: ${self:provider.stage}-OrdersQueueArn
+    
+    ApiEndpoint:
+      Description: URL of API Gateway
+      Value:
+        Fn::Sub: https://${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com/${self:provider.stage}

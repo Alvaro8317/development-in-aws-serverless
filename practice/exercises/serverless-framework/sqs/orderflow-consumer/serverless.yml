@@ -1,0 +1,39 @@
+org: alvaro8317udemy
+app: first-project
+service: async-sls-consumer
+
+custom:
+  pythonRequirements: {}
+
+provider:
+  name: aws
+  runtime: python3.13
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+
+  environment:
+    STAGE: ${self:provider.stage}
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - sqs:ReceiveMessage
+            - sqs:DeleteMessage
+            - sqs:GetQueueAttributes
+          Resource: !ImportValue ${self:provider.stage}-OrdersQueueArn
+
+functions:
+  processOrder:
+    handler: src/handlers/process_order.handler
+    description: Process messages from SQS y process orders
+    events:
+      - sqs:
+          arn: !ImportValue ${self:provider.stage}-OrdersQueueArn
+          batchSize: 10
+          maximumBatchingWindowInSeconds: 5
+          functionResponseType: ReportBatchItemFailures
+    environment:
+      ORDERS_QUEUE_URL: !ImportValue ${self:provider.stage}-OrdersQueueUrl
+    timeout: 30

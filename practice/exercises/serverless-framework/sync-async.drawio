@@ -1,0 +1,46 @@
+<mxfile host="65bd71144e">
+    <diagram id="k7dRjmiGs0_swc0E5PT7" name="Page-1">
+        <mxGraphModel dx="1726" dy="839" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="7" style="edgeStyle=none;html=1;" parent="1" source="2" target="6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.api_gateway;fillColor=#D9A741;gradientColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="260.5" width="76.5" height="93" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" style="edgeStyle=none;html=1;" parent="1" source="3" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="shape=actor;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry y="277" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="image;html=1;image=img/lib/clip_art/finance/Dollar_128x128.png" parent="1" vertex="1">
+                    <mxGeometry x="20" y="337" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" style="edgeStyle=none;html=1;" edge="1" parent="1" source="6" target="10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Recepción" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.lambda_function;fillColor=#F58534;gradientColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="271" width="69" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="DB" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.rds;fillColor=#2E73B8;gradientColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="266.5" width="72" height="81" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" style="edgeStyle=none;html=1;" edge="1" parent="1" source="10" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.queue;fillColor=#D9A741;gradientColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="590" y="212.5" width="73.5" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" style="edgeStyle=none;html=1;" edge="1" parent="1" source="12" target="8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="El guardado en BD" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.lambda_function;fillColor=#F58534;gradientColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="271" width="69" height="72" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
